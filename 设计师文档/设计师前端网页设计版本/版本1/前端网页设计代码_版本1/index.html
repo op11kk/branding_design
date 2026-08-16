@@ -1,0 +1,352 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#c8e1ed" />
+    <meta name="description" content="UBL" />
+    <title>UBL</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main>
+      <section class="still-hero" id="joy" aria-label="UBL">
+        <div class="still-hero__image" aria-hidden="true"></div>
+        <div class="still-hero__beam" aria-hidden="true"></div>
+        <a class="still-hero__logo" href="#joy" aria-label="UBL home">UBL</a>
+      </section>
+
+      <section class="growth-story" id="growth-story" aria-labelledby="growth-title" data-stage="drop">
+        <div class="growth-sticky">
+          <div class="growth-frames" aria-hidden="true">
+            <figure class="growth-frame growth-frame--seed">
+              <img src="assets/growth-seed-real-v2.png" alt="" width="1536" height="1024" />
+            </figure>
+            <figure class="growth-frame growth-frame--germination">
+              <img src="assets/growth-germination-real-v2.png" alt="" width="1536" height="1024" />
+            </figure>
+            <figure class="growth-frame growth-frame--sapling">
+              <img src="assets/growth-sapling-real-v2.png" alt="" width="1536" height="1024" />
+            </figure>
+            <figure class="growth-frame growth-frame--tree">
+              <img src="assets/growth-tree-real-v2.png" alt="" width="1536" height="1024" />
+            </figure>
+          </div>
+
+          <div class="growth-transition-wash" aria-hidden="true"></div>
+          <canvas class="growth-water-fx" aria-hidden="true"></canvas>
+          <div class="growth-grade" aria-hidden="true"></div>
+
+          <header class="growth-header">
+            <a href="#joy" aria-label="Back to first page">UBL°</a>
+            <p>Origin · A living transition</p>
+            <p><span id="growth-counter">01</span> / 04</p>
+          </header>
+
+          <div class="growth-copy">
+            <p class="growth-copy__eyebrow">One drop changes everything</p>
+            <h2 id="growth-title">Life begins<br /><em>in layers.</em></h2>
+          </div>
+
+          <div class="growth-notes" aria-live="polite">
+            <p data-growth-note="drop"><span>01</span> Water arrives</p>
+            <p data-growth-note="root"><span>02</span> The seed opens</p>
+            <p data-growth-note="sprout"><span>03</span> Root first, then light</p>
+            <p data-growth-note="tree"><span>04</span> A world takes shape</p>
+          </div>
+
+          <p class="growth-scroll" aria-hidden="true">Keep scrolling <span>↓</span></p>
+        </div>
+      </section>
+
+      <div class="journey view is-active" id="home-view">
+        <section class="memory-gallery" id="home" aria-label="First-person moments">
+          <div class="memory-gallery__texture" aria-hidden="true"></div>
+
+          <header class="memory-gallery__header">
+            <a class="wordmark wordmark--memory" href="#home" aria-label="UBL home">
+              <span class="wordmark__mark">U</span>
+              <span>Universal<br />Basic Layer</span>
+            </a>
+            <p><span></span> Living archive · 000</p>
+          </header>
+
+          <div class="memory-wheel" id="memory-wheel" role="region" aria-label="Eight draggable first-person moments" tabindex="0">
+            <button class="memory-card" type="button" data-angle="0" data-label="Play together" aria-label="Show Play together in the center" aria-pressed="true">
+              <img src="assets/moments/01-uno.png" alt="Playing UNO together from a first-person point of view" draggable="false" />
+            </button>
+            <button class="memory-card" type="button" data-angle="45" data-label="Feed the city" aria-label="Show Feed the city in the center" aria-pressed="false">
+              <img src="assets/moments/02-pigeons.jpeg" alt="Feeding pigeons from a first-person point of view" draggable="false" />
+            </button>
+            <button class="memory-card" type="button" data-angle="90" data-label="Pack to leave" aria-label="Show Pack to leave in the center" aria-pressed="false">
+              <img src="assets/moments/03-packing.png" alt="Packing a suitcase from a first-person point of view" draggable="false" />
+            </button>
+            <button class="memory-card" type="button" data-angle="135" data-label="Hold on" aria-label="Show Hold on in the center" aria-pressed="false">
+              <img src="assets/moments/04-holding-hands.jpeg" alt="Holding hands in a park from a first-person point of view" draggable="false" />
+            </button>
+            <button class="memory-card" type="button" data-angle="180" data-label="Make a canopy" aria-label="Show Make a canopy in the center" aria-pressed="false">
+              <img src="assets/moments/05-laundromat.png" alt="Lifting a fabric canopy together from a first-person point of view" draggable="false" />
+            </button>
+            <button class="memory-card" type="button" data-angle="225" data-label="Press play" aria-label="Show Press play in the center" aria-pressed="false">
+              <img src="assets/moments/06-music.jpeg" alt="Listening to music from a first-person point of view" draggable="false" />
+            </button>
+            <button class="memory-card" type="button" data-angle="270" data-label="Ride forward" aria-label="Show Ride forward in the center" aria-pressed="false">
+              <img src="assets/moments/07-cycling.png" alt="Cycling through the countryside from a first-person point of view" draggable="false" />
+            </button>
+            <button class="memory-card" type="button" data-angle="315" data-label="Meet the sky" aria-label="Show Meet the sky in the center" aria-pressed="false">
+              <img src="assets/moments/08-seagulls.png" alt="Feeding seagulls from a first-person point of view" draggable="false" />
+            </button>
+          </div>
+
+          <div class="memory-gallery__footer">
+            <p><span aria-hidden="true">↔</span> Drag or select a moment</p>
+            <p>Scroll to enter the living field <span aria-hidden="true">↓</span></p>
+          </div>
+        </section>
+
+        <section class="beach-story" id="beach-story" aria-label="The value of everyday life">
+          <div class="beach-sticky">
+            <header class="story-header">
+              <a class="wordmark wordmark--story" href="#home" aria-label="UBL home">
+                <span class="wordmark__mark">U</span>
+                <span>Universal<br />Basic Layer</span>
+              </a>
+              <p>Living field · 001</p>
+            </header>
+
+            <div class="beach-visual" id="beach-visual">
+              <div class="beach-drag-layer" id="beach-drag-layer">
+                <img class="beach-main-image" src="assets/beach-expanded-off.png" alt="People spending an ordinary day together on a beach" draggable="false" />
+                <img class="beach-price-image" src="assets/beach-expanded-on.png" alt="" draggable="false" />
+              </div>
+
+              <div class="record-control">
+                <span class="record-control__label">Allow to record</span>
+                <button class="record-switch" id="record-switch" type="button" role="switch" aria-checked="false" aria-label="Allow to record">
+                  <span aria-hidden="true"></span>
+                </button>
+                <small id="record-status">Recording paused</small>
+              </div>
+
+              <div class="drag-hint" aria-hidden="true"><span>↔</span> Drag the living field</div>
+            </div>
+
+            <div class="split-experience" id="split-experience">
+              <section class="people-map" aria-label="Choose a contributor value">
+                <div class="people-map__canvas">
+                  <img class="people-map__base" src="assets/beach-expanded-off.png" alt="Beach contributors" draggable="false" />
+                  <img class="people-map__values" src="assets/beach-expanded-on.png" alt="Beach contributors with individual value amounts" draggable="false" />
+
+                  <button class="price-point is-selected" style="--x:44.5%;--y:3.8%;--line:54px" data-price="2.90" type="button"><span>$2.90</span><i aria-hidden="true"></i></button>
+                  <button class="price-point" style="--x:52.3%;--y:5.4%;--line:50px" data-price="3.10" type="button"><span>$3.10</span><i aria-hidden="true"></i></button>
+                  <button class="price-point" style="--x:60.3%;--y:4.6%;--line:58px" data-price="21.40" type="button"><span>$21.40</span><i aria-hidden="true"></i></button>
+                  <button class="price-point" style="--x:41.8%;--y:19%;--line:54px" data-price="19.88" type="button"><span>$19.88</span><i aria-hidden="true"></i></button>
+                  <button class="price-point" style="--x:64.4%;--y:20.3%;--line:55px" data-price="24.80" type="button"><span>$24.80</span><i aria-hidden="true"></i></button>
+                  <button class="price-point" style="--x:44.5%;--y:35.2%;--line:51px" data-price="5.82" type="button"><span>$5.82</span><i aria-hidden="true"></i></button>
+                  <button class="price-point" style="--x:58.4%;--y:33%;--line:56px" data-price="28.50" type="button"><span>$28.50</span><i aria-hidden="true"></i></button>
+                  <button class="price-point" style="--x:29%;--y:36.7%;--line:58px" data-price="14.10" type="button"><span>$14.10</span><i aria-hidden="true"></i></button>
+                  <button class="price-point" style="--x:51.5%;--y:52%;--line:53px" data-price="2.20" type="button"><span>$2.20</span><i aria-hidden="true"></i></button>
+                </div>
+                <div class="people-map__caption">
+                  <p><span></span> Select a moment</p>
+                  <small>Every ordinary contribution carries its own value.</small>
+                </div>
+              </section>
+
+              <section class="value-phone-panel" aria-label="Ego Clip value returned">
+                <div class="phone-copy">
+                  <p class="eyebrow">Moment → layer → value</p>
+                  <h2>What you live<br /><em>returns to you.</em></h2>
+                </div>
+
+                <div class="phone-shell">
+                  <div class="phone-screen">
+                    <div class="phone-status"><b>9:41</b><span>▮▮▮ ◉ ▰</span></div>
+                    <div class="clip-viewer" id="clip-viewer" aria-label="Drag to rotate Ego Clip">
+                      <span class="clip-orbit" aria-hidden="true"></span>
+                      <img id="clip-frame" src="assets/egoclip-frames/clip-10.png" alt="Black Ego Clip product, rotatable forty degrees" draggable="false" />
+                      <small>Drag to rotate · 40°</small>
+                    </div>
+                    <div class="clip-name"><strong>EgoClip</strong><span><i></i> Active</span></div>
+
+                    <div class="value-card">
+                      <p>Your</p>
+                      <h3>Moment earned</h3>
+                      <div class="phone-amount"><span>$</span><strong id="phone-amount">2.90</strong></div>
+                      <div class="value-path">
+                        <div><i class="value-dot value-dot--blue"></i><span>Lived</span></div>
+                        <span></span>
+                        <div><i class="value-dot value-dot--green"></i><span>Captured</span></div>
+                        <span></span>
+                        <div><i class="value-dot value-dot--orange"></i><span>Returned</span></div>
+                      </div>
+                      <small class="ready-state"><i>✓</i> Ready</small>
+                    </div>
+                    <button class="claim-button" type="button">Claim</button>
+                    <span class="home-indicator" aria-hidden="true"></span>
+                  </div>
+                </div>
+              </section>
+            </div>
+
+            <div class="story-scroll-hint" aria-hidden="true"><span></span> Scroll to follow the value</div>
+          </div>
+        </section>
+
+        <section class="hero" id="waitlist" aria-labelledby="hero-title">
+        <div class="hero__image" aria-hidden="true"></div>
+        <div class="hero__wash" aria-hidden="true"></div>
+
+        <header class="site-header">
+          <a class="wordmark" href="#home" aria-label="UBL home">
+            <span class="wordmark__mark">U</span>
+            <span>Universal<br />Basic Layer</span>
+          </a>
+          <p class="edition"><span></span> Early access · 2026</p>
+          <a class="header-cta js-apply" href="#apply" data-track="General waitlist">Join waitlist <span>↗</span></a>
+        </header>
+
+        <div class="hero-copy">
+          <p class="eyebrow">An open layer for physical intelligence</p>
+          <h1 id="hero-title">Live what<br />comes <em>next.</em></h1>
+          <p class="hero-copy__body">Your everyday movement can help the next generation understand the real world.</p>
+        </div>
+
+        <div class="orbit" id="orbit" aria-label="Early access options">
+          <article class="orbit-card" data-angle="0" data-track="General waitlist">
+            <div class="orbit-card__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8ZM22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            </div>
+            <p class="orbit-card__tag">01 · First access</p>
+            <h2>Join Waitlist</h2>
+            <p>Be among the first to wear the Ego Clip.</p>
+            <a class="card-action js-apply" href="#apply" data-track="General waitlist">Sign up <span>↗</span></a>
+          </article>
+
+          <article class="orbit-card orbit-card--compact" data-angle="51.43" data-track="Founding circle">
+            <div class="orbit-card__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="m3 17 2-10 5 5 2-8 2 8 5-5 2 10H3ZM5 20h14"/></svg>
+            </div>
+            <p class="orbit-card__tag">02 · Shape the layer</p>
+            <h2>Founding Circle</h2>
+            <p>Help shape what comes next.</p>
+            <a class="card-action js-apply" href="#apply" data-track="Founding circle">Join waitlist <span>↗</span></a>
+          </article>
+
+          <article class="orbit-card orbit-card--note" data-angle="102.86" data-track="Launch updates">
+            <div class="orbit-card__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 7-3 9h18c0-2-3-2-3-9ZM10 21h4"/></svg>
+            </div>
+            <p class="orbit-card__tag">03 · Stay close</p>
+            <h2>Notify Me</h2>
+            <p>Quiet updates, only when they matter.</p>
+            <a class="card-action js-apply" href="#apply" data-track="Launch updates">Notify me <span>↗</span></a>
+          </article>
+
+          <article class="orbit-card orbit-card--compact" data-angle="154.29" data-track="Early access">
+            <div class="orbit-card__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M12 2 4 6v6c0 5 3.4 8.7 8 10 4.6-1.3 8-5 8-10V6l-8-4ZM9 12l2 2 4-4"/></svg>
+            </div>
+            <p class="orbit-card__tag">04 · Try it first</p>
+            <h2>Early Access</h2>
+            <p>A place in the first release.</p>
+            <a class="card-action js-apply" href="#apply" data-track="Early access">Sign up <span>↗</span></a>
+          </article>
+
+          <article class="orbit-card orbit-card--note" data-angle="205.72" data-track="Field notes">
+            <div class="orbit-card__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2Z"/></svg>
+            </div>
+            <p class="orbit-card__tag">05 · From the field</p>
+            <h2>Field Notes</h2>
+            <p>Follow the layer as it grows.</p>
+            <a class="card-action js-apply" href="#apply" data-track="Field notes">Notify me <span>↗</span></a>
+          </article>
+
+          <article class="orbit-card orbit-card--compact" data-angle="257.15" data-track="Community">
+            <div class="orbit-card__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8ZM23 11l-3 3-2-2"/></svg>
+            </div>
+            <p class="orbit-card__tag">06 · Grow together</p>
+            <h2>Community</h2>
+            <p>Meet the people building the layer.</p>
+            <a class="card-action js-apply" href="#apply" data-track="Community">Join waitlist <span>↗</span></a>
+          </article>
+
+          <article class="orbit-card orbit-card--note" data-angle="308.58" data-track="Priority list">
+            <div class="orbit-card__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="m12 2 3 6 6.5 1-4.75 4.6 1.1 6.4L12 17l-5.85 3 1.1-6.4L2.5 9 9 8l3-6Z"/></svg>
+            </div>
+            <p class="orbit-card__tag">07 · Be first</p>
+            <h2>Priority List</h2>
+            <p>Get release and event access first.</p>
+            <a class="card-action js-apply" href="#apply" data-track="Priority list">Sign up <span>↗</span></a>
+          </article>
+        </div>
+
+        <div class="hero__subject" aria-hidden="true"></div>
+
+        <div class="orbit-help" aria-hidden="true">
+          <span class="orbit-help__line"></span>
+          Cards orbit in real time
+        </div>
+
+        <p class="hero-index" aria-hidden="true">UB<span>L</span> / 02</p>
+        </section>
+      </div>
+
+      <section class="apply view" id="apply-view" aria-labelledby="apply-title">
+        <div class="apply__photo" aria-hidden="true"></div>
+        <div class="apply__panel">
+          <a class="back-link" href="#home">← Back to the coast</a>
+          <div class="apply__intro">
+            <p class="eyebrow">Universal Basic Layer · Early access</p>
+            <h1 id="apply-title">A place in<br /><em>the first layer.</em></h1>
+            <p>Tell us a little about you. We’ll only write when there is something worth sharing.</p>
+          </div>
+
+          <form id="waitlist-form">
+            <input type="hidden" name="track" id="track" value="General waitlist" />
+            <div class="field field--wide">
+              <label for="name">Your name</label>
+              <input id="name" name="name" type="text" autocomplete="name" placeholder="Ada Lovelace" required />
+            </div>
+            <div class="field field--wide">
+              <label for="email">Email address</label>
+              <input id="email" name="email" type="email" autocomplete="email" placeholder="ada@example.com" required />
+            </div>
+            <div class="field">
+              <label for="country">Where are you based?</label>
+              <input id="country" name="country" type="text" autocomplete="country-name" placeholder="City, country" required />
+            </div>
+            <div class="field">
+              <label for="interest">I’m most interested in</label>
+              <select id="interest" name="interest" required>
+                <option value="">Choose one</option>
+                <option>Wearing an Ego Clip</option>
+                <option>Research and partnerships</option>
+                <option>Community and events</option>
+                <option>Following the project</option>
+              </select>
+            </div>
+            <label class="consent field--wide">
+              <input type="checkbox" name="consent" required />
+              <span>I agree to receive occasional UBL updates. I can unsubscribe at any time.</span>
+            </label>
+            <button class="submit-button field--wide" type="submit">Join <span id="selected-track">the waitlist</span> <b>↗</b></button>
+            <p class="form-note field--wide">No tasks. No daily noise. Just the next step when it is ready.</p>
+          </form>
+
+          <div class="success" id="success" role="status" aria-live="polite" hidden>
+            <span class="success__mark">✓</span>
+            <p class="eyebrow">You’re on the list</p>
+            <h2>Welcome to<br /><em>the first layer.</em></h2>
+            <p>We’ve saved your place. Keep living—we’ll be in touch.</p>
+            <a href="#home">Return to the coast →</a>
+          </div>
+        </div>
+      </section>
+    </main>
+    <script src="script.js"></script>
+  </body>
+</html>
