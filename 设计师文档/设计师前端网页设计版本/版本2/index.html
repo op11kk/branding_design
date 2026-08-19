@@ -1,0 +1,1059 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#f4f5f2" />
+  <title>EgoClip — Earn From the Life You’re Already Living</title>
+  <style>
+    :root {
+      --ink: #2d241e;
+      --ink-soft: rgba(45, 36, 30, .72);
+      --line: rgba(45, 36, 30, .36);
+      --glass: rgba(255, 255, 255, .24);
+      --glass-strong: rgba(255, 255, 255, .5);
+      --paper: #f6f7f4;
+      --field-green: #4b6b4b;
+      --field-green-dark: #31543a;
+      --ease: cubic-bezier(.22, .76, .2, 1);
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      min-width: 320px;
+      min-height: 100%;
+      margin: 0;
+    }
+
+    body {
+      overflow-x: hidden;
+      color: var(--ink);
+      background: #dfe3e2;
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    }
+
+    button, a { font: inherit; }
+
+    .hero {
+      position: relative;
+      display: grid;
+      width: 100%;
+      min-height: 100svh;
+      grid-template-rows: auto 1fr;
+      overflow: hidden;
+      isolation: isolate;
+      background-color: var(--paper);
+      background-image: url("assets/hero-wall-expanded.png");
+      background-position: center;
+      background-size: cover;
+    }
+
+    .hero::after {
+      position: absolute;
+      z-index: -1;
+      inset: 0;
+      background: linear-gradient(90deg, rgba(255, 255, 255, .18), transparent 43%, rgba(255, 255, 255, .08));
+      pointer-events: none;
+      content: "";
+    }
+
+    .site-header {
+      position: relative;
+      z-index: 5;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: clamp(22px, 2.8vw, 42px) clamp(22px, 5vw, 76px) 0;
+    }
+
+    .brand {
+      color: var(--ink);
+      font-size: 13px;
+      font-weight: 820;
+      letter-spacing: .19em;
+      text-decoration: none;
+      text-transform: uppercase;
+    }
+
+    .header-note {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      color: rgba(45, 36, 30, .62);
+      font-size: 11px;
+      font-weight: 680;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .header-note::before {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--ink);
+      box-shadow: 0 0 0 4px rgba(45, 36, 30, .1);
+      content: "";
+    }
+
+    .hero-grid {
+      position: relative;
+      z-index: 2;
+      display: grid;
+      width: 100%;
+      min-height: 0;
+      grid-template-columns: minmax(0, 1.02fr) minmax(500px, .98fr);
+      align-items: center;
+      gap: clamp(30px, 4vw, 72px);
+      padding: clamp(54px, 8vh, 92px) clamp(22px, 5vw, 76px) clamp(42px, 7vh, 74px);
+    }
+
+    .hero-copy {
+      max-width: 720px;
+      animation: copyIn 760ms 70ms var(--ease) both;
+    }
+
+    h1 {
+      max-width: 8.2em;
+      margin: 0;
+      color: var(--ink);
+      font-size: clamp(58px, 6.15vw, 102px);
+      font-weight: 620;
+      letter-spacing: -.068em;
+      line-height: .91;
+      text-wrap: balance;
+    }
+
+    .subhead {
+      max-width: 59ch;
+      margin: clamp(24px, 3.3vh, 36px) 0 0;
+      color: var(--ink-soft);
+      font-size: clamp(16px, 1.25vw, 20px);
+      font-weight: 440;
+      letter-spacing: -.018em;
+      line-height: 1.55;
+    }
+
+    .cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: clamp(28px, 4.2vh, 42px);
+    }
+
+    .cta {
+      display: inline-grid;
+      min-width: 196px;
+      min-height: 58px;
+      grid-template-columns: 1fr 34px;
+      align-items: center;
+      gap: 14px;
+      padding: 8px 10px 8px 21px;
+      border: 1.25px solid var(--line);
+      border-radius: 999px;
+      color: var(--ink);
+      background: var(--glass-strong);
+      box-shadow: 0 10px 30px rgba(67, 76, 74, .07);
+      -webkit-backdrop-filter: blur(10px) saturate(1.08);
+      backdrop-filter: blur(10px) saturate(1.08);
+      font-size: 14px;
+      font-weight: 720;
+      text-decoration: none;
+      touch-action: manipulation;
+      transition: color 220ms ease, background 220ms ease, border-color 220ms ease, transform 220ms var(--ease);
+    }
+
+    .cta--secondary {
+      border-color: rgba(49, 84, 58, .56);
+      color: #fff;
+      background: rgba(75, 107, 75, .94);
+    }
+
+    .cta--secondary .cta-icon {
+      border-color: rgba(255, 255, 255, .42);
+      color: #fff;
+      background: rgba(255, 255, 255, .12);
+    }
+
+    .cta-icon {
+      display: inline-flex;
+      width: 34px;
+      height: 34px;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid rgba(45, 36, 30, .2);
+      border-radius: 50%;
+      background: rgba(255, 255, 255, .56);
+      transition: color 220ms ease, background 220ms ease, transform 220ms var(--ease);
+    }
+
+    .cta-icon svg {
+      width: 16px;
+      height: 16px;
+      fill: none;
+      stroke: currentColor;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-width: 2;
+    }
+
+    .cta:hover {
+      border-color: var(--ink);
+      color: #fff;
+      background: var(--ink);
+      transform: translateY(-2px);
+    }
+
+    .cta:hover .cta-icon {
+      color: var(--ink);
+      background: #fff;
+      transform: rotate(4deg) translate(1px, -1px);
+    }
+
+    .cta--secondary:hover {
+      border-color: var(--field-green-dark);
+      color: #fff;
+      background: var(--field-green-dark);
+    }
+
+    .cta--secondary:hover .cta-icon {
+      color: var(--field-green-dark);
+      background: #fff;
+    }
+
+    .cta:active { transform: translateY(1px) scale(.99); }
+
+    .cta:focus-visible,
+    .brand:focus-visible,
+    .video-toggle:focus-visible {
+      outline: 3px solid var(--ink);
+      outline-offset: 4px;
+    }
+
+    .wordmark-stage {
+      position: relative;
+      align-self: center;
+      width: min(100%, 690px);
+      aspect-ratio: 1.5 / 1;
+      justify-self: center;
+      animation: wordmarkIn 880ms 180ms var(--ease) both;
+    }
+
+    .wordmark-canvas {
+      display: block;
+      width: 100%;
+      height: 100%;
+      filter: saturate(1.22) brightness(1.05) contrast(1.03);
+    }
+
+    .video-source {
+      position: fixed;
+      width: 1px;
+      height: 1px;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .video-toggle {
+      position: absolute;
+      right: 3.5%;
+      bottom: 5%;
+      display: inline-flex;
+      width: 48px;
+      height: 48px;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid rgba(45, 36, 30, .32);
+      border-radius: 50%;
+      color: var(--ink);
+      background: rgba(255, 255, 255, .42);
+      -webkit-backdrop-filter: blur(9px);
+      backdrop-filter: blur(9px);
+      cursor: pointer;
+      transition: background 200ms ease, transform 200ms var(--ease);
+    }
+
+    .video-toggle:hover { background: rgba(255, 255, 255, .74); transform: scale(1.04); }
+    .video-toggle:active { transform: scale(.96); }
+
+    .video-toggle svg {
+      width: 18px;
+      height: 18px;
+      fill: currentColor;
+    }
+
+    .video-toggle .icon-play { display: none; }
+    .video-toggle[aria-pressed="true"] .icon-pause { display: none; }
+    .video-toggle[aria-pressed="true"] .icon-play { display: block; }
+
+    .wordmark-status {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip: rect(0 0 0 0);
+      clip-path: inset(50%);
+      white-space: nowrap;
+    }
+
+    .sky-transition {
+      position: relative;
+      height: clamp(420px, 72svh, 760px);
+      background:
+        radial-gradient(ellipse at 50% 4%, rgba(255, 255, 255, .82) 0%, rgba(255, 255, 255, 0) 44%),
+        linear-gradient(180deg, #f6f7f4 0%, #f3f7f8 20%, #e3f0f7 43%, #c7e4f4 70%, #9fcff0 100%);
+    }
+
+    .story-sequence {
+      position: relative;
+      background: #9fcff0;
+    }
+
+    .story-pin {
+      position: relative;
+      width: 100%;
+      height: 100svh;
+      overflow: hidden;
+      background: #9fcff0;
+    }
+
+    .story-track {
+      display: flex;
+      width: 300vw;
+      height: 100%;
+      will-change: transform;
+    }
+
+    .story-slide {
+      position: relative;
+      flex: 0 0 100vw;
+      width: 100vw;
+      height: 100%;
+      margin: 0;
+      overflow: hidden;
+      background: #9fcff0;
+    }
+
+    .story-slide img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      user-select: none;
+    }
+
+    .story-slide:first-child img { object-position: center 76%; }
+
+    .protection {
+      --protection-ink: #101821;
+      --protection-arrow: #f4e38a;
+      position: relative;
+      isolation: isolate;
+      min-height: 100svh;
+      overflow: hidden;
+      padding: clamp(78px, 8vw, 128px) clamp(22px, 6vw, 96px) clamp(88px, 9vw, 144px);
+      color: var(--protection-ink);
+      background-color: #d9edf9;
+      background-image: url("assets/protection-sky.png");
+      background-position: center;
+      background-size: cover;
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    }
+
+    .protection::before {
+      position: absolute;
+      z-index: -1;
+      inset: 0;
+      background:
+        radial-gradient(circle at 12% 10%, rgba(83, 167, 222, .16), transparent 34%),
+        linear-gradient(180deg, rgba(241, 249, 255, .08), rgba(196, 226, 247, .12));
+      pointer-events: none;
+      content: "";
+    }
+
+    .protection__inner {
+      width: min(1380px, 100%);
+      margin: 0 auto;
+    }
+
+    .protection__intro {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(300px, 560px);
+      align-items: end;
+      gap: clamp(28px, 5vw, 88px);
+      margin-bottom: clamp(44px, 6vw, 84px);
+    }
+
+    .protection__title {
+      margin: 0;
+      color: var(--protection-ink);
+      font-size: clamp(64px, 8.5vw, 142px);
+      font-weight: 650;
+      letter-spacing: -.072em;
+      line-height: .84;
+    }
+
+    .protection__lead {
+      max-width: 540px;
+      margin: 0 0 4px;
+    }
+
+    .protection__lead strong {
+      display: block;
+      margin-bottom: 12px;
+      font-size: clamp(23px, 2.2vw, 36px);
+      font-weight: 650;
+      letter-spacing: -.035em;
+      line-height: 1.06;
+    }
+
+    .protection__lead span {
+      display: block;
+      max-width: 50ch;
+      color: rgba(16, 24, 33, .7);
+      font-size: clamp(15px, 1.15vw, 18px);
+      font-weight: 450;
+      line-height: 1.55;
+    }
+
+    .protection-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      align-items: start;
+      gap: clamp(18px, 2.4vw, 34px);
+    }
+
+    .protection-card {
+      position: relative;
+      min-height: clamp(270px, 25vw, 340px);
+      overflow: hidden;
+      padding: clamp(28px, 3vw, 42px) clamp(88px, 8vw, 112px) clamp(30px, 3vw, 42px) clamp(28px, 3vw, 42px);
+      border: 1px solid rgba(255, 255, 255, .78);
+      border-radius: clamp(28px, 3vw, 42px);
+      background:
+        linear-gradient(145deg, rgba(255, 255, 255, .62), rgba(255, 255, 255, .22) 58%, rgba(218, 239, 252, .28)),
+        rgba(255, 255, 255, .16);
+      box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, .96),
+        inset 0 -1px 0 rgba(115, 174, 211, .12),
+        0 18px 50px rgba(45, 101, 143, .14),
+        0 3px 9px rgba(45, 101, 143, .08);
+      backdrop-filter: blur(26px) saturate(155%);
+      -webkit-backdrop-filter: blur(26px) saturate(155%);
+      transform: translateZ(0);
+      transition: transform 260ms var(--ease), border-color 260ms ease, box-shadow 260ms ease, background-color 260ms ease;
+    }
+
+    .protection-card::before {
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      background:
+        radial-gradient(ellipse at 18% 0%, rgba(255, 255, 255, .82), transparent 38%),
+        linear-gradient(110deg, transparent 22%, rgba(255, 255, 255, .28) 47%, transparent 68%);
+      opacity: .72;
+      pointer-events: none;
+      content: "";
+      transform: translate3d(-12%, 0, 0);
+      transition: opacity 260ms ease, transform 360ms var(--ease);
+    }
+
+    .protection-card::after {
+      position: absolute;
+      inset: 1px;
+      border: 1px solid rgba(255, 255, 255, .35);
+      border-radius: calc(clamp(28px, 3vw, 42px) - 1px);
+      pointer-events: none;
+      content: "";
+    }
+
+    .protection-card:hover,
+    .protection-card:focus-within {
+      border-color: rgba(255, 255, 255, .96);
+      box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 1),
+        inset 0 -1px 0 rgba(115, 174, 211, .14),
+        0 24px 64px rgba(45, 101, 143, .18),
+        0 5px 14px rgba(45, 101, 143, .1);
+      transform: translate3d(0, -5px, 0);
+    }
+
+    .protection-card:hover::before,
+    .protection-card:focus-within::before {
+      opacity: .98;
+      transform: translate3d(8%, 0, 0);
+    }
+
+    .protection-card__content {
+      position: relative;
+      z-index: 1;
+    }
+
+    .protection-card__title {
+      margin: 0;
+      color: #0c1117;
+      font-size: clamp(25px, 2.2vw, 38px);
+      font-weight: 650;
+      letter-spacing: -.04em;
+      line-height: 1.08;
+    }
+
+    .protection-card__brief,
+    .protection-card__detail {
+      color: rgba(12, 17, 23, .86);
+      font-size: clamp(15px, 1.15vw, 18px);
+      font-weight: 450;
+      line-height: 1.58;
+    }
+
+    .protection-card__brief {
+      max-width: 48ch;
+      margin: 20px 0 0;
+    }
+
+    .protection-card__detail-shell {
+      display: grid;
+      grid-template-rows: 0fr;
+      transition: grid-template-rows 300ms var(--ease);
+    }
+
+    .protection-card__detail {
+      min-height: 0;
+      margin: 0;
+      overflow: hidden;
+      opacity: 0;
+      transform: translate3d(0, 9px, 0);
+      transition: opacity 190ms ease-in, transform 240ms ease-in;
+    }
+
+    .protection-card.is-expanded .protection-card__detail-shell {
+      grid-template-rows: 1fr;
+    }
+
+    .protection-card.is-expanded .protection-card__detail {
+      margin-top: 16px;
+      opacity: 1;
+      transform: translate3d(0, 0, 0);
+      transition: opacity 260ms ease-out 70ms, transform 300ms var(--ease) 40ms;
+    }
+
+    .protection-toggle {
+      position: absolute;
+      z-index: 3;
+      right: clamp(24px, 2.4vw, 34px);
+      bottom: clamp(24px, 2.4vw, 34px);
+      display: grid;
+      width: 52px;
+      height: 52px;
+      padding: 0;
+      place-items: center;
+      border: 1px solid rgba(255, 255, 255, .74);
+      border-radius: 17px;
+      color: #182331;
+      background: var(--protection-arrow);
+      box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, .7),
+        0 9px 18px rgba(52, 92, 123, .16);
+      cursor: pointer;
+      touch-action: manipulation;
+      transition: transform 220ms var(--ease), background-color 220ms ease, box-shadow 220ms ease;
+    }
+
+    .protection-toggle svg {
+      width: 22px;
+      height: 22px;
+      fill: none;
+      stroke: currentColor;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-width: 1.8;
+      transition: transform 260ms var(--ease);
+    }
+
+    .protection-toggle:hover {
+      background: #f8e99b;
+      box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, .78),
+        0 12px 24px rgba(52, 92, 123, .2);
+      transform: translate3d(0, -2px, 0) scale(1.04);
+    }
+
+    .protection-toggle:active { transform: scale(.96); }
+
+    .protection-toggle:focus-visible {
+      outline: 3px solid #182331;
+      outline-offset: 4px;
+    }
+
+    .protection-toggle[aria-expanded="true"] svg { transform: rotate(90deg); }
+
+    @keyframes copyIn {
+      from { opacity: 0; transform: translate3d(-18px, 0, 0); }
+      to { opacity: 1; transform: translate3d(0, 0, 0); }
+    }
+
+    @keyframes wordmarkIn {
+      from { opacity: 0; transform: translate3d(18px, 0, 0) scale(.985); }
+      to { opacity: 1; transform: translate3d(0, 0, 0) scale(1); }
+    }
+
+    @media (max-width: 1080px) {
+      .hero-grid {
+        grid-template-columns: minmax(0, 1fr) minmax(390px, .86fr);
+        gap: 22px;
+      }
+      h1 { font-size: clamp(54px, 6.6vw, 78px); }
+    }
+
+    @media (max-width: 820px) {
+      .hero { min-height: 100svh; }
+      .header-note { display: none; }
+      .hero-grid {
+        grid-template-columns: 1fr;
+        gap: 38px;
+        padding-top: 64px;
+      }
+      .hero-copy { max-width: 650px; }
+      h1 { max-width: 8.3em; font-size: clamp(54px, 11.5vw, 82px); }
+      .subhead { max-width: 56ch; }
+      .wordmark-stage { width: min(100%, 640px); }
+      .sky-transition { height: 54svh; min-height: 360px; }
+      .story-slide img { object-fit: contain; }
+      .protection__intro { grid-template-columns: 1fr; align-items: start; }
+      .protection__lead { max-width: 620px; }
+      .protection-grid { grid-template-columns: 1fr; }
+      .protection-card { min-height: 280px; }
+    }
+
+    @media (max-width: 540px) {
+      .site-header { padding: 20px 18px 0; }
+      .hero-grid { gap: 30px; padding: 54px 18px 28px; }
+      h1 { font-size: clamp(47px, 14.2vw, 66px); line-height: .92; }
+      .subhead { margin-top: 22px; font-size: 16px; line-height: 1.5; }
+      .cta-row { display: grid; grid-template-columns: 1fr; margin-top: 28px; }
+      .cta { width: 100%; min-height: 56px; }
+      .wordmark-stage { aspect-ratio: 1.35 / 1; }
+      .video-toggle { right: 1%; bottom: 1%; }
+      .protection { padding-inline: 18px; background-position: 42% center; }
+      .protection__title { font-size: clamp(58px, 20vw, 86px); }
+      .protection-card { padding: 28px 80px 28px 28px; border-radius: 30px; }
+      .protection-card__title { font-size: 28px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        scroll-behavior: auto !important;
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+      }
+
+      .sky-transition { height: 36svh; min-height: 240px; }
+      .story-pin { height: auto; overflow: visible; }
+      .story-track { display: block; width: 100%; height: auto; transform: none !important; }
+      .story-slide { width: 100%; height: auto; min-height: 56svh; }
+      .story-slide img { height: auto; min-height: 56svh; object-fit: contain; }
+      .protection-card,
+      .protection-card:hover,
+      .protection-card:focus-within { transform: none; }
+    }
+  </style>
+</head>
+<body>
+  <main>
+  <section class="hero" aria-labelledby="hero-title">
+    <header class="site-header">
+      <a class="brand" href="index.html" aria-label="EgoClip home">Ego·Clip</a>
+      <span class="header-note">Real life, in motion</span>
+    </header>
+
+    <div class="hero-grid">
+      <section class="hero-copy">
+        <h1 id="hero-title">Earn from the life you’re already living.</h1>
+        <p class="subhead">Wear EgoClip while you cook, clean, work, or move through your day. It turns first-person, real-world experience into something robots can learn from—and a new way for you to earn.</p>
+
+        <div class="cta-row" aria-label="Hero actions">
+          <a class="cta" href="waitlist.html">
+            <span>Join the Waitlist</span>
+            <span class="cta-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8" /></svg>
+            </span>
+          </a>
+          <a class="cta cta--secondary" href="how-it-works.html">
+            <span>See How It Works</span>
+            <span class="cta-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8" /></svg>
+            </span>
+          </a>
+        </div>
+      </section>
+
+      <section class="wordmark-stage" aria-label="EgoClip wordmark filled with a looping video of a joyful woman running through a vivid green pasture">
+        <canvas class="wordmark-canvas" id="wordmarkCanvas" role="img" aria-label="EGO CLIP — real life in motion"></canvas>
+        <video
+          class="video-source"
+          id="lifeVideo"
+          muted
+          loop
+          autoplay
+          playsinline
+          preload="auto"
+          aria-hidden="true"
+        >
+          <source src="assets/life-in-motion.mp4" type="video/mp4" />
+        </video>
+        <button class="video-toggle" id="videoToggle" type="button" aria-label="Pause wordmark video" aria-pressed="false">
+          <svg class="icon-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 5h4v14H7zM13 5h4v14h-4z" /></svg>
+          <svg class="icon-play" viewBox="0 0 24 24" aria-hidden="true"><path d="m8 5 11 7-11 7z" /></svg>
+        </button>
+        <span class="wordmark-status" id="wordmarkStatus" aria-live="polite">Wordmark video playing</span>
+      </section>
+    </div>
+  </section>
+
+  <div class="sky-transition" aria-hidden="true"></div>
+
+  <section class="story-sequence" aria-label="How EgoClip works in three steps">
+    <div class="story-pin">
+      <div class="story-track">
+        <figure class="story-slide">
+          <img
+            src="assets/step-wear-egoclip.png"
+            width="1560"
+            height="1036"
+            alt="Wear EgoClip. Clip it on before an eligible everyday activity."
+            fetchpriority="high"
+            draggable="false"
+          />
+        </figure>
+        <figure class="story-slide">
+          <img
+            src="assets/step-live-your-day.png"
+            width="1978"
+            height="1112"
+            alt="Live your day. Cook, organize, clean, walk the dog, or complete other eligible routines as you normally would."
+            loading="lazy"
+            draggable="false"
+          />
+        </figure>
+        <figure class="story-slide">
+          <img
+            src="assets/step-earn-approved.png"
+            width="1976"
+            height="1112"
+            alt="Earn from approved experience. Eligible recordings that meet UBL's requirements can earn real payouts."
+            loading="lazy"
+            draggable="false"
+          />
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="protection" aria-labelledby="protection-title">
+    <div class="protection__inner">
+      <header class="protection__intro">
+        <h2 class="protection__title" id="protection-title">Protection</h2>
+        <p class="protection__lead">
+          <strong>Know what happens before anything goes wrong.</strong>
+          <span>A device you wear in real life needs real answers—not fine print you only find later.</span>
+        </p>
+      </header>
+
+      <div class="protection-grid">
+        <article class="protection-card">
+          <div class="protection-card__content">
+            <h3 class="protection-card__title">Recording and privacy</h3>
+            <p class="protection-card__brief">You decide what to record, and you can view or delete your recordings at any time.</p>
+            <div class="protection-card__detail-shell" id="protection-privacy">
+              <p class="protection-card__detail">If you encounter sensitive content, you can choose not to upload it. If it has already been uploaded, you can undo the upload within 72 hours.</p>
+            </div>
+          </div>
+          <button class="protection-toggle" type="button" aria-expanded="false" aria-controls="protection-privacy" aria-label="Open Recording and privacy details">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
+          </button>
+        </article>
+
+        <article class="protection-card">
+          <div class="protection-card__content">
+            <h3 class="protection-card__title">Help when you need it</h3>
+            <p class="protection-card__brief">Contact UBL through the confirmed support channels and get a response within the published service level.</p>
+            <div class="protection-card__detail-shell" id="protection-help">
+              <p class="protection-card__detail">Before launch, this panel will list available contact methods, service hours, expected response times, escalation paths, and how to track an open request.</p>
+            </div>
+          </div>
+          <button class="protection-toggle" type="button" aria-expanded="false" aria-controls="protection-help" aria-label="Open Help when you need it details">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
+          </button>
+        </article>
+
+        <article class="protection-card">
+          <div class="protection-card__content">
+            <h3 class="protection-card__title">Warranty</h3>
+            <p class="protection-card__brief">EgoClip includes a limited warranty covering the confirmed product and hardware scope.</p>
+            <div class="protection-card__detail-shell" id="protection-warranty">
+              <p class="protection-card__detail">The final warranty duration will be published before shipping, together with eligibility, claim steps, exclusions, and the repair or replacement process.</p>
+            </div>
+          </div>
+          <button class="protection-toggle" type="button" aria-expanded="false" aria-controls="protection-warranty" aria-label="Open Warranty details">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
+          </button>
+        </article>
+
+        <article class="protection-card">
+          <div class="protection-card__content">
+            <h3 class="protection-card__title">Damage, loss &amp; theft</h3>
+            <p class="protection-card__brief">See exactly what is covered before you decide whether the protection plan is right for you.</p>
+            <div class="protection-card__detail-shell" id="protection-damage">
+              <p class="protection-card__detail">Final terms will state replacement eligibility, any deductible, exclusions, and how damaged, lost, or stolen devices are handled.</p>
+            </div>
+          </div>
+          <button class="protection-toggle" type="button" aria-expanded="false" aria-controls="protection-damage" aria-label="Open Damage, loss and theft details">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
+          </button>
+        </article>
+      </div>
+    </div>
+  </section>
+  </main>
+
+  <script src="assets/vendor/gsap.min.js"></script>
+  <script src="assets/vendor/ScrollTrigger.min.js"></script>
+  <script>
+    (() => {
+      const canvas = document.querySelector('#wordmarkCanvas');
+      const stage = document.querySelector('.wordmark-stage');
+      const video = document.querySelector('#lifeVideo');
+      const toggle = document.querySelector('#videoToggle');
+      const status = document.querySelector('#wordmarkStatus');
+      if (!canvas || !stage || !video || !toggle || !status) return;
+
+      const context = canvas.getContext('2d', { alpha: true });
+      const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+      let cssWidth = 0;
+      let cssHeight = 0;
+      let running = false;
+      let frameHandle = null;
+      let inViewport = true;
+
+      const wordmarkFont = '"Arial Black", "Helvetica Neue", Arial, sans-serif';
+
+      const setFittedFont = (text, targetWidth, startingSize) => {
+        context.font = `900 ${startingSize}px ${wordmarkFont}`;
+        const measuredWidth = context.measureText(text).width || 1;
+        context.font = `900 ${startingSize * targetWidth / measuredWidth}px ${wordmarkFont}`;
+      };
+
+      const drawWordmark = method => {
+        const targetWidth = cssWidth * .97;
+        context.textAlign = 'center';
+        context.textBaseline = 'middle';
+        setFittedFont('EGO', targetWidth, cssHeight * .68);
+        context[method]('EGO', cssWidth * .5, cssHeight * .29);
+        setFittedFont('CLIP', targetWidth, cssHeight * .5);
+        context[method]('CLIP', cssWidth * .5, cssHeight * .75);
+      };
+
+      const drawVideoCover = () => {
+        const videoWidth = video.videoWidth;
+        const videoHeight = video.videoHeight;
+        if (!videoWidth || !videoHeight) return false;
+
+        const canvasRatio = cssWidth / cssHeight;
+        const videoRatio = videoWidth / videoHeight;
+        let sourceX = 0;
+        let sourceY = 0;
+        let sourceWidth = videoWidth;
+        let sourceHeight = videoHeight;
+
+        if (videoRatio > canvasRatio) {
+          sourceWidth = videoHeight * canvasRatio;
+          sourceX = (videoWidth - sourceWidth) * .5;
+        } else {
+          sourceHeight = videoWidth / canvasRatio;
+          sourceY = (videoHeight - sourceHeight) * .5;
+        }
+
+        context.drawImage(video, sourceX, sourceY, sourceWidth, sourceHeight, 0, 0, cssWidth, cssHeight);
+        return true;
+      };
+
+      const draw = () => {
+        if (!cssWidth || !cssHeight) return;
+        context.clearRect(0, 0, cssWidth, cssHeight);
+        context.save();
+        context.fillStyle = '#2d241e';
+        drawWordmark('fillText');
+        context.globalCompositeOperation = 'source-in';
+        if (!drawVideoCover()) {
+          context.fillStyle = '#2d241e';
+          context.fillRect(0, 0, cssWidth, cssHeight);
+        }
+        context.restore();
+
+        context.save();
+        context.strokeStyle = 'rgba(45, 36, 30, .14)';
+        context.lineWidth = 1.2;
+        drawWordmark('strokeText');
+        context.restore();
+      };
+
+      const scheduleFrame = () => {
+        if (!running) return;
+        draw();
+        if ('requestVideoFrameCallback' in video) {
+          frameHandle = video.requestVideoFrameCallback(scheduleFrame);
+        } else {
+          frameHandle = requestAnimationFrame(scheduleFrame);
+        }
+      };
+
+      const stopDrawing = () => {
+        running = false;
+        if (frameHandle === null) return;
+        if ('cancelVideoFrameCallback' in video) video.cancelVideoFrameCallback(frameHandle);
+        else cancelAnimationFrame(frameHandle);
+        frameHandle = null;
+      };
+
+      const startDrawing = () => {
+        if (running) return;
+        running = true;
+        scheduleFrame();
+      };
+
+      const resizeCanvas = () => {
+        const bounds = stage.getBoundingClientRect();
+        const dpr = Math.min(2, window.devicePixelRatio || 1);
+        cssWidth = Math.max(1, bounds.width);
+        cssHeight = Math.max(1, bounds.height);
+        canvas.width = Math.round(cssWidth * dpr);
+        canvas.height = Math.round(cssHeight * dpr);
+        context.setTransform(dpr, 0, 0, dpr, 0, 0);
+        draw();
+      };
+
+      const syncPlayback = async () => {
+        if (reducedMotion.matches || !inViewport || document.hidden || toggle.getAttribute('aria-pressed') === 'true') {
+          video.pause();
+          stopDrawing();
+          draw();
+          return;
+        }
+
+        try {
+          await video.play();
+          startDrawing();
+        } catch {
+          toggle.setAttribute('aria-pressed', 'true');
+          toggle.setAttribute('aria-label', 'Play wordmark video');
+          status.textContent = 'Wordmark video paused';
+          draw();
+        }
+      };
+
+      toggle.addEventListener('click', () => {
+        const shouldPause = toggle.getAttribute('aria-pressed') !== 'true';
+        toggle.setAttribute('aria-pressed', String(shouldPause));
+        toggle.setAttribute('aria-label', shouldPause ? 'Play wordmark video' : 'Pause wordmark video');
+        status.textContent = shouldPause ? 'Wordmark video paused' : 'Wordmark video playing';
+        syncPlayback();
+      });
+
+      video.addEventListener('loadeddata', () => {
+        if (reducedMotion.matches) video.currentTime = Math.min(1.4, video.duration || 1.4);
+        draw();
+        syncPlayback();
+      });
+
+      video.addEventListener('seeked', draw);
+      document.addEventListener('visibilitychange', syncPlayback);
+      reducedMotion.addEventListener('change', syncPlayback);
+
+      const observer = new IntersectionObserver(entries => {
+        inViewport = entries[0]?.isIntersecting ?? true;
+        syncPlayback();
+      }, { threshold: .08 });
+      observer.observe(stage);
+
+      const resizeObserver = new ResizeObserver(resizeCanvas);
+      resizeObserver.observe(stage);
+      resizeCanvas();
+      syncPlayback();
+    })();
+
+    (() => {
+      const pin = document.querySelector('.story-pin');
+      const track = document.querySelector('.story-track');
+      if (!pin || !track || !window.gsap || !window.ScrollTrigger) return;
+
+      gsap.registerPlugin(ScrollTrigger);
+
+      const motion = gsap.matchMedia();
+      motion.add('(prefers-reduced-motion: no-preference)', () => {
+        const timeline = gsap.timeline({
+          defaults: { ease: 'none' },
+          scrollTrigger: {
+            id: 'egoclip-story-slides',
+            trigger: pin,
+            start: 'top top',
+            end: () => `+=${window.innerHeight * 3.2}`,
+            pin: true,
+            pinSpacing: true,
+            scrub: .55,
+            anticipatePin: 1,
+            invalidateOnRefresh: true,
+            snap: {
+              snapTo: 'labels',
+              duration: { min: .16, max: .38 },
+              delay: .08,
+              ease: 'power1.inOut'
+            }
+          }
+        });
+
+        timeline
+          .addLabel('slide-1', 0)
+          .to(track, { x: 0, duration: .45 })
+          .to(track, { x: () => -window.innerWidth, duration: 1 })
+          .addLabel('slide-2')
+          .to(track, { x: () => -window.innerWidth, duration: .55 })
+          .to(track, { x: () => -window.innerWidth * 2, duration: 1 })
+          .addLabel('slide-3');
+
+        return () => timeline.kill();
+      });
+
+      const storyImages = [...document.querySelectorAll('.story-slide img')];
+      Promise.all(storyImages.map(image => image.complete
+        ? Promise.resolve()
+        : new Promise(resolve => image.addEventListener('load', resolve, { once: true }))))
+        .then(() => ScrollTrigger.refresh());
+    })();
+
+    (() => {
+      const toggles = [...document.querySelectorAll('.protection-toggle')];
+      if (!toggles.length) return;
+
+      const setExpanded = (button, expanded) => {
+        const card = button.closest('.protection-card');
+        if (!card) return;
+        button.setAttribute('aria-expanded', String(expanded));
+        button.setAttribute('aria-label', `${expanded ? 'Close' : 'Open'} ${card.querySelector('.protection-card__title')?.textContent || 'protection'} details`);
+        card.classList.toggle('is-expanded', expanded);
+      };
+
+      toggles.forEach(button => {
+        button.addEventListener('click', () => {
+          const willExpand = button.getAttribute('aria-expanded') !== 'true';
+          toggles.forEach(other => {
+            if (other !== button) setExpanded(other, false);
+          });
+          setExpanded(button, willExpand);
+        });
+      });
+    })();
+  </script>
+</body>
+</html>
