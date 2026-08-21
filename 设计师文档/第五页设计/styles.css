@@ -1,0 +1,331 @@
+:root {
+  --ink: #153d2b;
+  --ink-muted: rgba(21, 61, 43, 0.78);
+  --field: #6f9d3d;
+  --accent: #ffd05b;
+  --line: rgba(21, 61, 43, 0.38);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --photo-shadow: 0 20px 50px rgba(2, 14, 15, 0.26);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background: #668f39;
+  color-scheme: dark;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  background: var(--field);
+  color: var(--ink);
+  font-family: "DM Sans", "Helvetica Neue", sans-serif;
+  text-rendering: optimizeLegibility;
+}
+
+.story {
+  min-height: 285svh;
+}
+
+.scene {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  min-height: 580px;
+  overflow: hidden;
+  isolation: isolate;
+  background: #79a846;
+}
+
+.landscape,
+.atmosphere,
+.photo-field,
+.copy {
+  position: absolute;
+  inset: 0;
+}
+
+.landscape {
+  z-index: -4;
+  background-image:
+    linear-gradient(180deg, rgba(255, 217, 111, 0.1), rgba(43, 92, 42, 0.34)),
+    url("./assets/dawn-field.jpg");
+  background-position: center;
+  background-size: cover;
+  transform: translate3d(var(--bg-x, 0), var(--bg-y, 0), 0)
+    scale(var(--bg-scale, 1.06));
+  filter: saturate(1.32) sepia(0.12) hue-rotate(-25deg) brightness(1.24)
+    contrast(0.94);
+  will-change: transform;
+}
+
+.atmosphere {
+  z-index: -3;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 50% 44%, rgba(255, 232, 149, 0.04) 0 16%, rgba(33, 76, 35, 0.22) 78%),
+    linear-gradient(90deg, rgba(60, 85, 25, 0.08), transparent 28% 72%, rgba(60, 85, 25, 0.08));
+}
+
+.light {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(70px);
+  opacity: 0.2;
+  mix-blend-mode: screen;
+}
+
+.light--one {
+  width: 46vw;
+  height: 32vw;
+  left: -18vw;
+  bottom: -10vw;
+  background: rgba(255, 204, 80, 0.88);
+  animation: breathe 11s ease-in-out infinite alternate;
+}
+
+.light--two {
+  width: 38vw;
+  height: 38vw;
+  right: -18vw;
+  top: -16vw;
+  background: rgba(168, 230, 91, 0.52);
+  animation: breathe 15s ease-in-out -5s infinite alternate-reverse;
+}
+
+.grain {
+  position: absolute;
+  inset: -50%;
+  opacity: 0.065;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.7'/%3E%3C/svg%3E");
+  animation: grain 0.55s steps(2) infinite;
+  pointer-events: none;
+}
+
+.photo-field {
+  z-index: 1;
+  pointer-events: none;
+}
+
+.photo {
+  --tx: 0px;
+  --ty: 0px;
+  --scale: 0.16;
+  --angle: 0deg;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: clamp(112px, 11vw, 190px);
+  aspect-ratio: 0.76;
+  opacity: var(--photo-opacity, 0);
+  transform: translate3d(calc(-50% + var(--tx)), calc(-50% + var(--ty)), 0)
+    rotate(var(--angle)) scale(var(--scale));
+  transform-origin: center;
+  will-change: transform, opacity;
+}
+
+.photo--1 { width: clamp(140px, 14.2vw, 244px); aspect-ratio: 0.78; }
+.photo--2 { width: clamp(90px, 8.2vw, 138px); aspect-ratio: 0.72; }
+.photo--3 { width: clamp(126px, 12.4vw, 214px); aspect-ratio: 0.92; }
+.photo--4 { width: clamp(92px, 8.8vw, 150px); aspect-ratio: 0.7; }
+.photo--5 { width: clamp(116px, 10.4vw, 178px); aspect-ratio: 0.82; }
+.photo--6 { width: clamp(142px, 14.6vw, 252px); aspect-ratio: 1.02; }
+.photo--7 { width: clamp(94px, 8.6vw, 146px); aspect-ratio: 0.7; }
+.photo--8 { width: clamp(126px, 12.2vw, 208px); aspect-ratio: 0.86; }
+
+.photo__surface {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border: 0;
+  border-radius: 1px;
+  background-image: url("./assets/daily-life-grid.jpg");
+  background-repeat: no-repeat;
+  background-size: 400% 200%;
+  box-shadow: var(--photo-shadow);
+  filter: saturate(0.92) contrast(1.03);
+  animation: float 6s ease-in-out infinite alternate;
+}
+
+.photo:nth-child(2n) .photo__surface {
+  animation-delay: -2.7s;
+  animation-duration: 7.4s;
+}
+
+.photo:nth-child(3n) .photo__surface {
+  animation-delay: -4.1s;
+  animation-duration: 8.2s;
+}
+
+.scene-1 { background-position: 0% 0%; }
+.scene-2 { background-position: 33.333% 0%; }
+.scene-3 { background-position: 66.666% 0%; }
+.scene-4 { background-position: 100% 0%; }
+.scene-5 { background-position: 0% 100%; }
+.scene-6 { background-position: 33.333% 100%; }
+.scene-7 { background-position: 66.666% 100%; }
+.scene-8 { background-position: 100% 100%; }
+
+.capture-point {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 0 0 rgba(246, 166, 106, 0.55);
+  opacity: var(--point-opacity, 0);
+  transform: translate(-50%, -50%) scale(var(--point-scale, 0));
+}
+
+.copy {
+  z-index: 3;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  width: min(100% - 40px, 1140px);
+  margin-inline: auto;
+  padding-bottom: 1.5vh;
+  text-align: center;
+  pointer-events: none;
+}
+
+h1 {
+  margin: 0;
+  font-family: "Archivo Black", "Arial Black", sans-serif;
+  font-size: clamp(3.2rem, 6.4vw, 7.8rem);
+  font-weight: 900;
+  line-height: 0.9;
+  letter-spacing: -0.065em;
+  text-wrap: balance;
+  text-shadow: 0 2px 24px rgba(255, 247, 210, 0.22);
+}
+
+h1 span,
+h1 em {
+  display: block;
+}
+
+h1 em {
+  color: #f2ad19;
+  font-style: normal;
+  font-weight: 900;
+}
+
+.copy p {
+  max-width: 650px;
+  margin: clamp(24px, 3.4vh, 40px) 0 0;
+  color: var(--ink-muted);
+  font-size: clamp(0.94rem, 1.08vw, 1.16rem);
+  font-weight: 400;
+  line-height: 1.5;
+  letter-spacing: 0.012em;
+  text-wrap: balance;
+  text-shadow: 0 1px 18px rgba(255, 247, 210, 0.3);
+}
+
+.progress {
+  position: absolute;
+  z-index: 5;
+  right: clamp(18px, 2.4vw, 42px);
+  bottom: clamp(18px, 2.4vw, 38px);
+  width: 54px;
+  height: 1px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.22);
+}
+
+.progress span {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: var(--ink);
+  transform: scaleX(var(--scroll-progress, 0));
+  transform-origin: left center;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@keyframes breathe {
+  from { transform: translate3d(-2%, 1%, 0) scale(0.95); }
+  to { transform: translate3d(5%, -3%, 0) scale(1.08); }
+}
+
+@keyframes grain {
+  0% { transform: translate3d(0, 0, 0); }
+  25% { transform: translate3d(2%, -3%, 0); }
+  50% { transform: translate3d(-3%, 2%, 0); }
+  75% { transform: translate3d(3%, 4%, 0); }
+  100% { transform: translate3d(-2%, -2%, 0); }
+}
+
+@keyframes float {
+  from { transform: translate3d(0, -3px, 0) scale(1.003); }
+  to { transform: translate3d(0, 4px, 0) scale(1.015); }
+}
+
+@media (max-width: 760px) {
+  .story {
+    min-height: 250svh;
+  }
+
+  .scene {
+    min-height: 520px;
+  }
+
+  .copy {
+    width: min(100% - 30px, 560px);
+    padding-bottom: 2vh;
+  }
+
+  h1 {
+    font-size: clamp(2.7rem, 13.5vw, 5.2rem);
+    line-height: 0.91;
+  }
+
+  .copy p {
+    max-width: 34ch;
+    margin-top: 22px;
+    font-size: 0.93rem;
+  }
+
+  .photo--1 { width: clamp(96px, 29vw, 132px); }
+  .photo--2 { width: clamp(66px, 18vw, 86px); }
+  .photo--3 { width: clamp(86px, 25vw, 116px); }
+  .photo--4 { width: clamp(64px, 18vw, 84px); }
+  .photo--5 { width: clamp(76px, 22vw, 102px); }
+  .photo--6 { width: clamp(100px, 30vw, 138px); }
+  .photo--7 { width: clamp(64px, 19vw, 88px); }
+  .photo--8 { width: clamp(86px, 25vw, 116px); }
+
+  .light--one {
+    width: 80vw;
+    height: 70vw;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .light,
+  .grain,
+  .photo__surface {
+    animation: none;
+  }
+}
