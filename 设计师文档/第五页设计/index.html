@@ -5,77 +5,114 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="Wear Eagle Clip, live your day, and turn everyday moments into useful real-world data."
+      content="Robot companies are already spending real money on experience from people."
     />
-    <title>Eagle Clip — Wear it. Live your day. Earn it.</title>
+    <title>Eagle Clip — Can I really get paid for this?</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=DM+Sans:wght@400;500&display=swap"
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Manrope:wght@400;500;600&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="./styles.css" />
   </head>
   <body>
-    <main>
-      <section class="story" aria-labelledby="story-title">
-        <div class="scene">
-          <div class="landscape" aria-hidden="true"></div>
-          <div class="atmosphere" aria-hidden="true">
-            <span class="light light--one"></span>
-            <span class="light light--two"></span>
-            <span class="grain"></span>
-          </div>
+    <main class="evidence" data-active="0">
+      <div class="backdrops" aria-hidden="true">
+        <figure class="backdrop is-active" data-backdrop="0">
+          <img src="./assets/generated/Tesla-warm.png" alt="" />
+        </figure>
+        <figure class="backdrop" data-backdrop="1">
+          <img src="./assets/generated/Figure-warm.png" alt="" />
+        </figure>
+        <figure class="backdrop" data-backdrop="2">
+          <img src="./assets/generated/Dyna-warm.png" alt="" />
+        </figure>
+      </div>
 
-          <div class="photo-field" aria-hidden="true">
-            <div class="photo photo--1" data-x="-0.43" data-y="-0.27" data-rotate="0">
-              <div class="photo__surface scene-1"></div>
-            </div>
-            <div class="photo photo--2" data-x="-0.2" data-y="-0.39" data-rotate="0">
-              <div class="photo__surface scene-2"></div>
-            </div>
-            <div class="photo photo--3" data-x="0.25" data-y="-0.36" data-rotate="0">
-              <div class="photo__surface scene-3"></div>
-            </div>
-            <div class="photo photo--4" data-x="0.43" data-y="-0.08" data-y-mobile="-0.25" data-rotate="0">
-              <div class="photo__surface scene-4"></div>
-            </div>
-            <div class="photo photo--5" data-x="-0.42" data-y="0.3" data-rotate="0">
-              <div class="photo__surface scene-5"></div>
-            </div>
-            <div class="photo photo--6" data-x="-0.2" data-y="0.42" data-rotate="0">
-              <div class="photo__surface scene-6"></div>
-            </div>
-            <div class="photo photo--7" data-x="0.12" data-y="0.39" data-rotate="0">
-              <div class="photo__surface scene-7"></div>
-            </div>
-            <div class="photo photo--8" data-x="0.39" data-y="0.31" data-rotate="0">
-              <div class="photo__surface scene-8"></div>
-            </div>
-            <span class="capture-point"></span>
-          </div>
+      <div class="image-treatment" aria-hidden="true"></div>
+      <div class="noise" aria-hidden="true"></div>
 
-          <div class="copy">
-            <h1 id="story-title">
-              <span>Wear it, live your day,</span>
-              <em>earn it.</em>
-            </h1>
-            <p>
-              Before you start, you’ll see exactly what to do, what it can earn,
-              and what we’re looking for.
-            </p>
-          </div>
+      <header class="site-header">
+        <a class="brand" href="#top" aria-label="Eagle Clip home">Eagle Clip<span>^</span></a>
+        <p class="sequence" aria-live="polite"><span>01</span> / 03</p>
+      </header>
 
-          <div class="progress" aria-hidden="true">
-            <span></span>
-          </div>
-          <p class="sr-only">
-            Scroll to reveal moments from everyday life radiating outward from
-            the center of the page.
-          </p>
+      <section class="intro" id="top" aria-labelledby="page-title">
+        <h1 id="page-title">Can I really get paid for this?</h1>
+        <p>Yes. Robot companies are already spending real money on experience from people.</p>
+      </section>
+
+      <section class="company-rail" aria-label="Companies investing in real-world experience">
+        <div class="company-tabs" role="tablist" aria-label="Select a company">
+          <button
+            class="company-tab is-active"
+            type="button"
+            role="tab"
+            aria-selected="true"
+            aria-controls="company-visual"
+            data-slide="0"
+          >
+            <span class="tab-heading">
+              <span class="company-name">Tesla pays people</span>
+              <span class="tab-number">01</span>
+            </span>
+            <strong>$25.25-$34.50 / hour</strong>
+            <span class="company-copy">to perform real-world movements that help improve Optimus.</span>
+            <span class="company-mark" aria-hidden="true">T</span>
+            <span class="progress-track" aria-hidden="true"><span></span></span>
+          </button>
+
+          <button
+            class="company-tab"
+            type="button"
+            role="tab"
+            aria-selected="false"
+            aria-controls="company-visual"
+            data-slide="1"
+            tabindex="-1"
+          >
+            <span class="tab-heading">
+              <span class="company-name">Figure</span>
+              <span class="tab-number">02</span>
+            </span>
+            <strong>$ 1 billion fundraising</strong>
+            <span class="company-copy"><b>100,000+ contributors</b> connected through its partnership to scale first-person experience collection.</span>
+            <span class="company-mark" aria-hidden="true">F</span>
+            <span class="progress-track" aria-hidden="true"><span></span></span>
+          </button>
+
+          <button
+            class="company-tab"
+            type="button"
+            role="tab"
+            aria-selected="false"
+            aria-controls="company-visual"
+            data-slide="2"
+            tabindex="-1"
+          >
+            <span class="tab-heading">
+              <span class="company-name">Dyna Robotics</span>
+              <span class="tab-number">03</span>
+            </span>
+            <strong>$143.5M+ raised</strong>
+            <span class="company-copy"><b>1,000,000+ hours</b> of first-person experience sourced through external partners and its own first-person collection.</span>
+            <span class="company-mark" aria-hidden="true">D</span>
+            <span class="progress-track" aria-hidden="true"><span></span></span>
+          </button>
+        </div>
+
+        <div class="rail-controls" aria-label="Carousel controls">
+          <button class="arrow arrow--previous" type="button" aria-label="Previous company">←</button>
+          <button class="arrow arrow--next" type="button" aria-label="Next company">→</button>
         </div>
       </section>
+
+      <div id="company-visual" class="sr-only" role="tabpanel">
+        The background image changes to match the selected company.
+      </div>
     </main>
+
     <script src="./app.js"></script>
   </body>
 </html>

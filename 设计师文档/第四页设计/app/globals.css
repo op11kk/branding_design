@@ -1,12 +1,10 @@
 @import "tailwindcss";
 
 :root {
-  --paper: #f3f0e9;
-  --ink: #11130f;
-  --navy: #15203e;
-  --lime: #c7f36b;
-  --blue: #4b64ff;
-  --peach: #ff9b78;
+  --paper: #dceff9;
+  --ink: #080b0f;
+  --grid-line: #58708a;
+  --accent: #aab6c3;
 }
 
 * {
@@ -20,16 +18,14 @@ html {
 
 body {
   margin: 0;
-  background:
-    radial-gradient(circle at 8% 2%, rgba(255, 255, 255, 0.9), transparent 25rem),
-    var(--paper);
+  background: var(--paper);
   color: var(--ink);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
 }
 
 ::selection {
-  background: var(--lime);
-  color: var(--ink);
+  background: var(--accent);
+  color: #080b0f;
 }
 
 img {

@@ -1,101 +1,96 @@
-const story = document.querySelector(".story");
-const landscape = document.querySelector(".landscape");
-const photos = [...document.querySelectorAll(".photo")];
-const root = document.documentElement;
+const root = document.querySelector(".evidence");
+const tabs = [...document.querySelectorAll(".company-tab")];
+const backdrops = [...document.querySelectorAll(".backdrop")];
+const sequence = document.querySelector(".sequence span");
+const previousButton = document.querySelector(".arrow--previous");
+const nextButton = document.querySelector(".arrow--next");
 const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 
-let scrollProgress = 0;
-let pointerX = 0;
-let pointerY = 0;
-let ticking = false;
+const cycleDuration = 9000;
+let activeIndex = 0;
+let cycleTimer;
+let wheelLocked = false;
+let pointerStartX = null;
 
-const clamp = (value, min = 0, max = 1) => Math.min(max, Math.max(min, value));
-const easeOutExpo = (value) => (value === 1 ? 1 : 1 - 2 ** (-10 * value));
-const easeOutBack = (value) => {
-  const c1 = 1.36;
-  const c3 = c1 + 1;
-  return 1 + c3 * (value - 1) ** 3 + c1 * (value - 1) ** 2;
-};
+function selectSlide(index, options = {}) {
+  const nextIndex = (index + tabs.length) % tabs.length;
+  activeIndex = nextIndex;
+  root.dataset.active = String(nextIndex);
+  sequence.textContent = String(nextIndex + 1).padStart(2, "0");
 
-function measureScroll() {
-  const rect = story.getBoundingClientRect();
-  const distance = story.offsetHeight - window.innerHeight;
-  scrollProgress = clamp(-rect.top / Math.max(distance, 1));
-}
-
-function render() {
-  ticking = false;
-  const revealRaw = clamp((scrollProgress - 0.12) / 0.46);
-  const reveal = reducedMotion.matches ? (revealRaw > 0.15 ? 1 : 0) : easeOutBack(revealRaw);
-  const opacity = clamp((scrollProgress - 0.12) / 0.12);
-  const copyFade = 1 - clamp((scrollProgress - 0.76) / 0.16) * 0.12;
-  const viewW = window.innerWidth;
-  const viewH = window.innerHeight;
-
-  photos.forEach((photo, index) => {
-    const x = Number(photo.dataset.x) * viewW * reveal;
-    const mobileY = photo.dataset.yMobile;
-    const yFactor = viewW <= 760 && mobileY !== undefined
-      ? Number(mobileY)
-      : Number(photo.dataset.y);
-    const y = yFactor * viewH * reveal;
-    const angle = Number(photo.dataset.rotate) * reveal;
-    const stagger = clamp((revealRaw * 1.25) - index * 0.018);
-    const scale = 0.16 + easeOutExpo(stagger) * 0.84;
-
-    photo.style.setProperty("--tx", `${x.toFixed(2)}px`);
-    photo.style.setProperty("--ty", `${y.toFixed(2)}px`);
-    photo.style.setProperty("--angle", `${angle.toFixed(2)}deg`);
-    photo.style.setProperty("--scale", scale.toFixed(3));
-    photo.style.setProperty("--photo-opacity", opacity.toFixed(3));
+  tabs.forEach((tab, tabIndex) => {
+    const isActive = tabIndex === nextIndex;
+    tab.classList.toggle("is-active", isActive);
+    tab.setAttribute("aria-selected", String(isActive));
+    tab.tabIndex = isActive ? 0 : -1;
   });
 
-  const bgScale = 1.06 + scrollProgress * 0.055;
-  const bgY = -scrollProgress * viewH * 0.022 + pointerY * 5;
-  const bgX = pointerX * 7;
-  landscape.style.setProperty("--bg-scale", bgScale.toFixed(3));
-  landscape.style.setProperty("--bg-y", `${bgY.toFixed(2)}px`);
-  landscape.style.setProperty("--bg-x", `${bgX.toFixed(2)}px`);
+  backdrops.forEach((backdrop, backdropIndex) => {
+    backdrop.classList.toggle("is-active", backdropIndex === nextIndex);
+  });
 
-  document.querySelector(".copy").style.opacity = copyFade.toFixed(3);
-  root.style.setProperty("--scroll-progress", scrollProgress.toFixed(3));
-  const pointIn = clamp((scrollProgress - 0.08) / 0.08);
-  const pointOut = 1 - clamp((scrollProgress - 0.38) / 0.14);
-  root.style.setProperty("--point-opacity", (pointIn * pointOut).toFixed(3));
-  root.style.setProperty("--point-scale", (0.7 + revealRaw * 2.2).toFixed(3));
+  if (options.focus) {
+    tabs[nextIndex].focus({ preventScroll: true });
+  }
+
+  if (options.scroll && window.innerWidth <= 780) {
+    tabs[nextIndex].scrollIntoView({ behavior: reducedMotion.matches ? "auto" : "smooth", inline: "center", block: "nearest" });
+  }
+
+  restartCycle();
 }
 
-function requestRender() {
-  if (ticking) return;
-  ticking = true;
-  requestAnimationFrame(render);
+function restartCycle() {
+  window.clearInterval(cycleTimer);
+  if (reducedMotion.matches || document.hidden) return;
+  cycleTimer = window.setInterval(() => selectSlide(activeIndex + 1, { scroll: true }), cycleDuration);
 }
 
-window.addEventListener(
-  "scroll",
-  () => {
-    measureScroll();
-    requestRender();
-  },
-  { passive: true },
-);
-
-window.addEventListener("resize", () => {
-  measureScroll();
-  requestRender();
+tabs.forEach((tab, index) => {
+  tab.addEventListener("click", () => selectSlide(index, { scroll: true }));
+  tab.addEventListener("keydown", (event) => {
+    if (event.key !== "ArrowLeft" && event.key !== "ArrowRight") return;
+    event.preventDefault();
+    event.stopPropagation();
+    const direction = event.key === "ArrowRight" ? 1 : -1;
+    selectSlide(activeIndex + direction, { focus: true, scroll: true });
+  });
 });
 
-window.addEventListener(
-  "pointermove",
+previousButton?.addEventListener("click", () => selectSlide(activeIndex - 1, { scroll: true }));
+nextButton?.addEventListener("click", () => selectSlide(activeIndex + 1, { scroll: true }));
+
+window.addEventListener("keydown", (event) => {
+  if (event.key === "ArrowLeft") selectSlide(activeIndex - 1, { scroll: true });
+  if (event.key === "ArrowRight") selectSlide(activeIndex + 1, { scroll: true });
+});
+
+root.addEventListener(
+  "wheel",
   (event) => {
-    if (reducedMotion.matches) return;
-    pointerX = event.clientX / window.innerWidth - 0.5;
-    pointerY = event.clientY / window.innerHeight - 0.5;
-    requestRender();
+    if (wheelLocked || Math.abs(event.deltaY) < 20) return;
+    wheelLocked = true;
+    selectSlide(activeIndex + (event.deltaY > 0 ? 1 : -1), { scroll: true });
+    window.setTimeout(() => {
+      wheelLocked = false;
+    }, 720);
   },
   { passive: true },
 );
 
-reducedMotion.addEventListener("change", requestRender);
-measureScroll();
-render();
+root.addEventListener("pointerdown", (event) => {
+  if (event.pointerType === "mouse") return;
+  pointerStartX = event.clientX;
+});
+
+root.addEventListener("pointerup", (event) => {
+  if (pointerStartX === null) return;
+  const distance = event.clientX - pointerStartX;
+  pointerStartX = null;
+  if (Math.abs(distance) < 45) return;
+  selectSlide(activeIndex + (distance < 0 ? 1 : -1), { scroll: true });
+});
+
+document.addEventListener("visibilitychange", restartCycle);
+reducedMotion.addEventListener("change", restartCycle);
+restartCycle();
